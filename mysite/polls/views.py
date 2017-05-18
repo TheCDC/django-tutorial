@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
-from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.http import HttpResponse
 from django.utils import timezone
+from django.http import Http404, HttpResponseRedirect
 from .models import Question, Choice
 # Create your views here.
 
@@ -24,6 +24,11 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
+
+    def get_queryset(self):
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        )
 
 
 class ResultView(generic.DetailView):
