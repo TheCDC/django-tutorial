@@ -11,7 +11,8 @@ from .models import Question
 
 def create_question(question_text, days):
     time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)
+    return Question.objects.create(question_text=question_text,
+                                   pub_date=time)
 
 
 class QuestionMethodTests(TestCase):
@@ -67,7 +68,8 @@ class QuestionViewTests(TestCase):
 
     def test_index_veiw_with_future_question_and_past_question(self):
         """
-        Even if past and future questions exist, only past questions should display.
+        Even if past and future questions exist,
+        only past questions should display.
         """
         create_question("Past question.", -30)
         create_question("Future question.", 30)
@@ -106,7 +108,7 @@ class QuestionIndexDetailTests(TestCase):
 
     def test_detail_view_with_a_past_question(self):
         """
-        The detail view of a question with a past pub_date 
+        The detail view of a question with a past pub_date
         should return the question's text.
         """
         past_question = create_question(question_text="Past.", days=-30)
