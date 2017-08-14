@@ -17,7 +17,7 @@ class IndexView(generic.ListView):
         """Return last five published questions, excluding
         ones scheduled for the future."""
         # questions_with_choices = Question.objects.filter(
-        #     id__in=Choice.objects.all().values_list("question_id", flat=True))
+        # id__in=Choice.objects.all().values_list("question_id", flat=True))
         return Question.objects.filter(
             pub_date__lte=timezone.now(),
 
